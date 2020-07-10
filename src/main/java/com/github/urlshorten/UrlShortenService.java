@@ -23,14 +23,14 @@ public class UrlShortenService {
         Objects.requireNonNull(url);
         Objects.requireNonNull(strategy);
 
-        Url urlForShorten = new Url();
+        var urlForShorten = new Url();
         urlForShorten.setCreationDate(LocalDateTime.now());
         urlForShorten.setExpirationDate(urlForShorten.getCreationDate().plusYears(2L));
         urlForShorten.setOriginalUrl(url);
 
         urlRepository.save(urlForShorten);
 
-        String id = strategy.apply(urlForShorten.getId());
+        var id = strategy.apply(urlForShorten.getId());
         try {
             URL netUrl = new URL(url);
 

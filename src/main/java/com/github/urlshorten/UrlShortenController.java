@@ -20,7 +20,7 @@ public class UrlShortenController {
 
     @PostMapping("/url_shorten")
     public ResponseEntity shorten(@RequestBody UrlToShorten url) {
-        Url shortenedUrl = urlShortenService.shorten(url.getUrl(), mapper.toIdStrategy(url.getStrategy()));
+        var shortenedUrl = urlShortenService.shorten(url.getUrl(), mapper.toIdStrategy(url.getStrategy()));
 
         return ResponseEntity.created(URI.create(shortenedUrl.getShortenUrl())).build();
     }

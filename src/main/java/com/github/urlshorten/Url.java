@@ -8,7 +8,7 @@ public class Url {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "original_url", length = 2083, nullable = false)
     private String originalUrl;
@@ -22,11 +22,11 @@ public class Url {
     @Column(name = "expiration_date",  nullable = false)
     private LocalDateTime expirationDate;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

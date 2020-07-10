@@ -10,14 +10,13 @@ public enum IdStrategy implements Function<Long, String> {
 
         @Override
         public String apply(Long seed) {
-            String number = Long.toString(seed);
-            char[] buf = new char[number.length()];
-            int charPos = number.length() - 1;
-            BigInteger bigIntegerNumber = BigInteger.valueOf(seed);
-            BigInteger radix = BigInteger.valueOf(corpus.length);
+            var number = Long.toString(seed);
+            var buf = new char[number.length()];
+            var charPos = number.length() - 1;
+            var bigIntegerNumber = BigInteger.valueOf(seed);
+            var radix = BigInteger.valueOf(corpus.length);
 
-            while (bigIntegerNumber.compareTo(radix) >= 0)
-            {
+            while (bigIntegerNumber.compareTo(radix) >= 0) {
                 buf[charPos--] = corpus[bigIntegerNumber.mod(radix).intValue()];
                 bigIntegerNumber = bigIntegerNumber.divide(radix);
             }
@@ -28,7 +27,7 @@ public enum IdStrategy implements Function<Long, String> {
     BASE_10 {
         @Override
         public String apply(Long seed) {
-            BigInteger value = BigInteger.ZERO;
+            var value = BigInteger.ZERO;
             for (char c : Long.toString(seed).toCharArray())
             {
                 value = value.multiply(BigInteger.valueOf(62));
