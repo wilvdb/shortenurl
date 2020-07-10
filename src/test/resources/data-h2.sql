@@ -1,0 +1,1 @@
+INSERT INTO url(original_url, shorten_url, creation_date, expiration_date) VALUES('http://google.com', 'http://google.com/1234', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP );
