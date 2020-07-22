@@ -2,6 +2,7 @@ package com.github.urlshorten;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -33,46 +34,57 @@ class UrlShortenServiceTest {
     service = new UrlShortenService(repository);
   }
 
-  @DisplayName("should shorten url based on...")
-  @ParameterizedTest(name = " strategy {0}")
-  @EnumSource(IdStrategy.class)
-  void should_shortern_url(IdStrategy strategy) {
-    // given
-    var goodUrl = "https://medium.com/swlh/how-to-build-a-tiny-url-service-that-scales-to-billions-f6fb5ea22e8c";
-    given(repository.save(any(Url.class))).willReturn(new Url());
+  @Nested
+  class UrlShortenServiceShortenUrl {
 
-    // when
-    var result = service.shorten(goodUrl, strategy);
+    @BeforeEach
+    void set_up() {
+      given(repository.save(any(Url.class))).willAnswer(invocation -> {
+        var urlEntity = (Url) invocation.getArgument(0);
+        urlEntity.setId(1L);
+        return urlEntity;
+      });
+    }
 
-    // then
-    verify(repository).save(urlCaptor.capture());
-    var url = urlCaptor.getValue();
-    assertAll(
-            () -> assertEquals(goodUrl, url.getOriginalUrl()),
-            () -> assertNotNull(url.getId()));
+    @DisplayName("should shorten url based on...")
+    @ParameterizedTest(name = " strategy {0}")
+    @EnumSource(IdStrategy.class)
+    void should_shortern_url(IdStrategy strategy) {
+      // given
+      var goodUrl = "https://medium.com/swlh/how-to-build-a-tiny-url-service-that-scales-to-billions-f6fb5ea22e8c";
 
-    assertTrue(result.getShortenUrl().contains("medium.com"));
-    assertFalse(result.getShortenUrl().contains("swlh/how-to-build-a-tiny-url-service-that-scales-to-billions-f6fb5ea22e8c"));
-  }
+      // when
+      var result = service.shorten(goodUrl, strategy);
+
+      // then
+      verify(repository).save(urlCaptor.capture());
+      var url = urlCaptor.getValue();
+      assertAll(
+          () -> assertEquals(goodUrl, url.getOriginalUrl()),
+          () -> assertNotNull(url.getId()));
+
+      assertTrue(result.getShortenUrl().contains("medium.com"));
+      assertFalse(result.getShortenUrl().contains("swlh/how-to-build-a-tiny-url-service-that-scales-to-billions-f6fb5ea22e8c"));
+    }
 
 
-  @Test
-  void should_failed_to_shorten() {
-    // given
-    var wrongUrl = "hmerhmeoj(you'tueido";
-    given(repository.save(any(Url.class))).willReturn(new Url());
+    @Test
+    void should_failed_to_shorten() {
+      // given
+      var wrongUrl = "hmerhmeoj(you'tueido";
 
-    // when
-    Executable executable = () -> service.shorten(wrongUrl, IdStrategy.BASE_62);
+      // when
+      Executable executable = () -> service.shorten(wrongUrl, IdStrategy.BASE_62);
 
-    // then
-    assertThrows(IllegalArgumentException.class, executable);
+      // then
+      assertThrows(IllegalArgumentException.class, executable);
 
-    verify(repository).save(urlCaptor.capture());
-    var url = urlCaptor.getValue();
-    assertAll(
-            () -> assertEquals(wrongUrl, url.getOriginalUrl()),
-            () -> assertNotNull(url.getId()));
+      verify(repository).save(urlCaptor.capture());
+      var url = urlCaptor.getValue();
+      assertAll(
+          () -> assertEquals(wrongUrl, url.getOriginalUrl()),
+          () -> assertNotNull(url.getId()));
+    }
   }
 
   @Test

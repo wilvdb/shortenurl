@@ -28,7 +28,7 @@ public class UrlShortenService {
         urlForShorten.setExpirationDate(urlForShorten.getCreationDate().plusYears(2L));
         urlForShorten.setOriginalUrl(url);
 
-        urlRepository.save(urlForShorten);
+        urlForShorten = urlRepository.save(urlForShorten);
 
         var id = strategy.apply(urlForShorten.getId());
         try {
