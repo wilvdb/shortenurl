@@ -15,13 +15,13 @@ open class UrlRepositioryTest(@Autowired val repository: UrlRepository) {
     @Test
     fun `should find by shortern url`() {
         // given
-        val shortenUrl = "http://google.com/1234";
+        val shortenUrl = "http://google.com/1234"
 
         // when
-        val url = repository.findByShortenUrl(shortenUrl);
+        val url = repository.findByShortenUrl(shortenUrl)
 
         // then
-        assertTrue(url.isPresent);
-        assertEquals(shortenUrl, url.get().shortenUrl);
+        assertTrue(url.isPresent)
+        assertEquals(shortenUrl, url.get().shortenUrl)
     }
 }
