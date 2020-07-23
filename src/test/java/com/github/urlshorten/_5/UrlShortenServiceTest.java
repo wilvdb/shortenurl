@@ -1,5 +1,9 @@
-package com.github.urlshorten;
+package com.github.urlshorten._5;
 
+import com.github.urlshorten.IdStrategy;
+import com.github.urlshorten.Url;
+import com.github.urlshorten.UrlRepository;
+import com.github.urlshorten.UrlShortenService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

@@ -1,4 +1,4 @@
-package com.github.urlshorten;
+package com.github.urlshorten._5;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

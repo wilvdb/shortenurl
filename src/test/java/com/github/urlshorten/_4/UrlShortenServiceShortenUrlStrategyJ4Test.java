@@ -1,5 +1,9 @@
-package com.github.urlshorten;
+package com.github.urlshorten._4;
 
+import com.github.urlshorten.IdStrategy;
+import com.github.urlshorten.Url;
+import com.github.urlshorten.UrlRepository;
+import com.github.urlshorten.UrlShortenService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
