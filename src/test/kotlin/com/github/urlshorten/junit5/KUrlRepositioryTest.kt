@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 
 @Tag("db")
 @DataJpaTest
-open class UrlRepositioryTest(@Autowired val repository: UrlRepository) {
+open class KUrlRepositioryTest(@Autowired val repository: UrlRepository) {
 
     @Test
     fun `should find by shortern url`() {

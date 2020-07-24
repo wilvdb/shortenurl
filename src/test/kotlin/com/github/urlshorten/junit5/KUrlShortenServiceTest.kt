@@ -22,7 +22,7 @@ import org.mockito.MockitoAnnotations
 import org.mockito.invocation.InvocationOnMock
 import java.util.*
 
-class UrlShortenServiceTest {
+class KUrlShortenServiceTest {
     @Mock
     lateinit var repository: UrlRepository
 
