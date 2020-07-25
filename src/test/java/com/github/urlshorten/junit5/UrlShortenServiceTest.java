@@ -1,4 +1,4 @@
-package com.github.urlshorten._5;
+package com.github.urlshorten.junit5;
 
 import com.github.urlshorten.IdStrategy;
 import com.github.urlshorten.Url;
