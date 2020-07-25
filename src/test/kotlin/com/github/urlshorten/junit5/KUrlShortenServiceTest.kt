@@ -65,10 +65,9 @@ class KUrlShortenServiceTest {
             assertAll({ assertEquals(goodUrl, url.originalUrl) },
                     { assertNotNull(url.id) })
 
-            assertTrue(result.shortenUrl.contains("medium.com"))
-            assertFalse(result.shortenUrl.contains("swlh/how-to-build-a-tiny-url-service-that-scales-to-billions-f6fb5ea22e8c"))
+            assertTrue(result.shortenUrlContains("medium.com"))
+            assertFalse(result.shortenUrlContains("swlh/how-to-build-a-tiny-url-service-that-scales-to-billions-f6fb5ea22e8c"))
         }
-
 
         @Test
         fun should_failed_to_shorten() {
