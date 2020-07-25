@@ -4,11 +4,8 @@ import com.github.urlshorten.IdStrategy
 import com.github.urlshorten.Url
 import com.github.urlshorten.UrlRepository
 import com.github.urlshorten.UrlShortenService
+import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Nested
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
 import org.mockito.ArgumentCaptor
@@ -62,7 +59,8 @@ class KUrlShortenServiceTest {
             // then
             verify(repository).save(urlCaptor.capture())
             val url = urlCaptor.value
-            assertAll({ assertEquals(goodUrl, url.originalUrl) },
+            assertAll(
+                    { assertEquals(goodUrl, url.originalUrl) },
                     { assertNotNull(url.id) })
 
             assertTrue(result.shortenUrlContains("medium.com"))
@@ -70,22 +68,23 @@ class KUrlShortenServiceTest {
         }
 
         @Test
-        fun should_failed_to_shorten() {
+        fun `should failed to shorten`() {
             // given
             val wrongUrl = "hmerhmeoj(you'tueido"
 
             // then
-            assertThrows(IllegalArgumentException::class.java) { service.shorten(wrongUrl, IdStrategy.BASE_62) }
+            assertThrows<IllegalArgumentException> { service.shorten(wrongUrl, IdStrategy.BASE_62) }
 
             verify(repository).save(urlCaptor.capture())
             val url = urlCaptor.value
-            assertAll({ assertEquals(wrongUrl, url.originalUrl) },
+            assertAll(
+                    { assertEquals(wrongUrl, url.originalUrl) },
                     { assertNotNull(url.id) })
         }
     }
 
     @Test
-    fun should_retrieve() {
+    fun `should retrieve`() {
         // given
         val url = "https://google.com"
         val entity = Url()

@@ -43,7 +43,7 @@ class GUrlShortenServiceTest {
 
         @BeforeEach
         void set_up() {
-            given(repository.save(any(Url.class))).willAnswer({ invocation ->
+            given(repository.save(any(Url))).willAnswer({ invocation ->
                 Url urlEntity = invocation.getArgument(0)
                 urlEntity.id = 1L
                 urlEntity
@@ -71,7 +71,7 @@ class GUrlShortenServiceTest {
 
 
         @Test
-        void should_failed_to_shorten() {
+        void "should failed to shorten"() {
             // given
             def wrongUrl = "hmerhmeoj(you'tueido"
 
@@ -80,13 +80,14 @@ class GUrlShortenServiceTest {
 
             verify(repository).save(urlCaptor.capture())
             def url = urlCaptor.value
-            assertAll({ assert wrongUrl == url.originalUrl } as Executable,
+            assertAll(
+                    { assert wrongUrl == url.originalUrl } as Executable,
                     { assert url.id != null } as Executable)
         }
     }
 
     @Test
-    void should_retrieve() {
+    void "should retrieve"() {
         // given
         def url = "https://google.com"
         def entity = new Url()

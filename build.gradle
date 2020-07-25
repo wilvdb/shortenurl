@@ -14,6 +14,12 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+
+	compileTestKotlin {
+		kotlinOptions {
+			jvmTarget = "1.8"
+		}
+	}
 }
 
 repositories {
