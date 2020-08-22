@@ -15,7 +15,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.*;
 
 @RunWith(Parameterized.class)
@@ -64,9 +64,8 @@ public class UrlShortenServiceShortenUrlStrategyJ4Test {
     // then
     verify(repository).save(urlCaptor.capture());
     var url = urlCaptor.getValue();
-    assertAll(
-        () -> assertEquals(goodUrl, url.getOriginalUrl()),
-        () -> assertNotNull(url.getId()));
+    assertEquals(goodUrl, url.getOriginalUrl());
+    assertNotNull(url.getId());
 
     assertTrue(result.getShortenUrl().contains("medium.com"));
     assertFalse(result.getShortenUrl().contains("swlh/how-to-build-a-tiny-url-service-that-scales-to-billions-f6fb5ea22e8c"));
