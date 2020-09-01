@@ -6,9 +6,6 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 
-import static org.junit.jupiter.api.Assertions.assertEquals
-import static org.junit.jupiter.api.Assertions.assertTrue
-
 @Tag("db")
 @DataJpaTest
 class GUrlRepositoryTest {
@@ -25,7 +22,6 @@ class GUrlRepositoryTest {
         def url = repository.findByShortenUrl(shortenUrl)
 
         // then
-        assertTrue(url.isPresent())
-        assertEquals(shortenUrl, url.get().shortenUrl)
+        assert shortenUrl.equals(url.orElse(null)?.shortenUrl)
     }
 }
