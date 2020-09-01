@@ -5,8 +5,6 @@ import com.github.urlshorten.UrlRepository;
 import com.github.urlshorten.UrlShortenService;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -19,9 +17,6 @@ public class UrlShortenServiceTest {
 
   @Mock
   UrlRepository repository;
-
-  @Captor
-  ArgumentCaptor<Url> urlCaptor;
 
   UrlShortenService service;
 
