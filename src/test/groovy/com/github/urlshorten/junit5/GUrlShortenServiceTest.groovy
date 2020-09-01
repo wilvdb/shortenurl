@@ -4,6 +4,7 @@ import com.github.urlshorten.IdStrategy
 import com.github.urlshorten.Url
 import com.github.urlshorten.UrlRepository
 import com.github.urlshorten.UrlShortenService
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -21,6 +22,7 @@ import static org.mockito.ArgumentMatchers.any
 import static org.mockito.ArgumentMatchers.anyString
 import static org.mockito.BDDMockito.given
 import static org.mockito.Mockito.verify
+import static org.mockito.Mockito.verifyNoMoreInteractions
 
 class GUrlShortenServiceTest {
     @Mock
@@ -36,6 +38,11 @@ class GUrlShortenServiceTest {
         MockitoAnnotations.initMocks(this)
 
         service = new UrlShortenService(repository)
+    }
+
+    @AfterEach
+    void tear_down() {
+        verifyNoMoreInteractions(repository);
     }
 
     @Nested

@@ -3,6 +3,7 @@ package com.github.urlshorten.junit4;
 import com.github.urlshorten.Url;
 import com.github.urlshorten.UrlRepository;
 import com.github.urlshorten.UrlShortenService;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -25,6 +26,11 @@ public class UrlShortenServiceTest {
     MockitoAnnotations.initMocks(this);
 
     service = new UrlShortenService(repository);
+  }
+
+  @After
+  public void tear_down() {
+    verifyNoMoreInteractions(repository);
   }
 
   @Test

@@ -15,6 +15,7 @@ import org.mockito.BDDMockito.given
 import org.mockito.Captor
 import org.mockito.Mock
 import org.mockito.Mockito.verify
+import org.mockito.Mockito.verifyNoMoreInteractions
 import org.mockito.MockitoAnnotations
 import org.mockito.invocation.InvocationOnMock
 import java.util.*
@@ -33,6 +34,11 @@ class KUrlShortenServiceTest {
         MockitoAnnotations.initMocks(this)
 
         service = UrlShortenService(repository)
+    }
+
+    @AfterEach
+    fun tear_down() {
+        verifyNoMoreInteractions(repository);
     }
 
     @Nested

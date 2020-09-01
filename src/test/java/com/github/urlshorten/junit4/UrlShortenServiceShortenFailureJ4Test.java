@@ -4,6 +4,7 @@ import com.github.urlshorten.IdStrategy;
 import com.github.urlshorten.Url;
 import com.github.urlshorten.UrlRepository;
 import com.github.urlshorten.UrlShortenService;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +30,11 @@ public class UrlShortenServiceShortenFailureJ4Test {
     MockitoAnnotations.initMocks(this);
 
     service = new UrlShortenService(repository);
+  }
+
+  @After
+  public void tear_down() {
+    verifyNoMoreInteractions(repository);
   }
 
   @Test
