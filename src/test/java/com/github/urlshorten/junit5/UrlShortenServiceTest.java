@@ -7,6 +7,8 @@ import com.github.urlshorten.UrlShortenService;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.aggregator.AggregateWith;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -47,7 +49,7 @@ class UrlShortenServiceTest {
     void set_up() {
       given(repository.save(any(Url.class))).willAnswer(invocation -> {
         var urlEntity = (Url) invocation.getArgument(0);
-        urlEntity.setId(1L);
+        urlEntity.setId(123456789L);
         return urlEntity;
       });
     }
@@ -71,6 +73,20 @@ class UrlShortenServiceTest {
 
       assertTrue(result.getShortenUrl().contains("medium.com"));
       assertFalse(result.getShortenUrl().contains("swlh/how-to-build-a-tiny-url-service-that-scales-to-billions-f6fb5ea22e8c"));
+    }
+
+    @DisplayName("should shorten urls...")
+    @ParameterizedTest(name = "shorten {0}")
+    @CsvFileSource(resources = "/urls.csv")
+    void should_shorten(@AggregateWith(TestedUrlAggregator.class) TestedUrl testedUrl) {
+      assertEquals(service.shorten(testedUrl.getOriginUrl(), testedUrl.getStrategy()).getShortenUrl(),
+          testedUrl.getTargetUrl());
+
+      verify(repository).save(urlCaptor.capture());
+      var url = urlCaptor.getValue();
+      assertAll(
+          () -> assertEquals(testedUrl.getOriginUrl(), url.getOriginalUrl()),
+          () -> assertEquals(testedUrl.getTargetUrl(), url.getShortenUrl()));
     }
 
 
@@ -109,4 +125,5 @@ class UrlShortenServiceTest {
 
     verify(repository).findByShortenUrl(url);
   }
+
 }

@@ -34,7 +34,7 @@ public class UrlShortenService {
         try {
             URL netUrl = new URL(url);
 
-            urlForShorten.setShortenUrl(url.replace(netUrl.getPath(), id));
+            urlForShorten.setShortenUrl(url.replace(netUrl.getPath(), "/" + id));
         } catch (MalformedURLException e) {
             throw new IllegalArgumentException(e);
         }
