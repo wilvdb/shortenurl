@@ -6,7 +6,7 @@ import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
 import org.junit.jupiter.params.aggregator.ArgumentsAggregationException;
 import org.junit.jupiter.params.aggregator.ArgumentsAggregator;
 
-class TestedUrlAggregator implements ArgumentsAggregator {
+public class TestedUrlAggregator implements ArgumentsAggregator {
   @Override
   public Object aggregateArguments(ArgumentsAccessor accessor, ParameterContext context)
       throws ArgumentsAggregationException {
