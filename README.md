@@ -1,6 +1,9 @@
 # Shorten URL
 
-It aims to demonstrate that using another programming language for testing is possible and even has soma advantages.
+It aims to test numerous frameworks:
+* Testing framework (JUnit5, Spock...)
+* Assertions libraries (Hamcrest, AssertJ, RestAssured)
+* Mock framework (Mockito, KMock, WireMock)
 
 # JUnit 5
 
@@ -30,3 +33,17 @@ Open ```UrlShortenServiceShortenUrlStrategyJ4Test``` and apply as described belo
 Open ```UrlRepositoryTest``` and apply as described below:
 * Apply step 1 on this class
 * Move from JUnit 4 runner to JUnit 5 extension
+
+# Assertions
+
+## Hamcrest
+
+Replace JUnit5 assertions by Hamcrest on ```UrlShortenServiceTest```.
+
+Applying several assertions at once is not possible. Only applying several matchers to one value is possible.
+
+Does not support specific assertions for exceptions.
+
+## AssertJ
+
+Replace JUnit5 assertions by AssertJ on ```UrlShortenServiceTest```.
