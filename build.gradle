@@ -2,7 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.3.1.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
-	id 'org.jetbrains.kotlin.jvm' version '1.3.70'
+	id 'org.jetbrains.kotlin.jvm' version '1.4.20'
 	id 'groovy'
 }
 
@@ -13,6 +13,12 @@ sourceCompatibility = '11'
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
+	}
+
+	compileKotlin {
+		kotlinOptions {
+			jvmTarget = "1.8"
+		}
 	}
 
 	compileTestKotlin {
@@ -39,7 +45,7 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-	testCompile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.70'
+	testCompile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.20'
 	testCompile 'org.codehaus.groovy:groovy-all:3.0.5'
 
 }
