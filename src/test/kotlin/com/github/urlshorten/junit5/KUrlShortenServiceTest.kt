@@ -18,7 +18,7 @@ import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
 import org.mockito.MockitoAnnotations
 import org.mockito.invocation.InvocationOnMock
-import java.util.*
+import java.time.LocalDateTime
 
 class KUrlShortenServiceTest {
     @Mock
@@ -93,15 +93,20 @@ class KUrlShortenServiceTest {
     fun `should retrieve`() {
         // given
         val url = "https://google.com"
-        val entity = Url()
-        given(repository.findByShortenUrl(anyString())).willReturn(Optional.of(entity))
+        val entity = Url(
+                shortenUrl = null,
+                originalUrl = "",
+                expirationDate = LocalDateTime.now(),
+                creationDate = LocalDateTime.now(),
+                id = null,
+        )
+        given(repository.findByShortenUrl(anyString())).willReturn(entity)
 
         // when
         val optUrl = service.retrieve(url)
 
         // then
-        assertTrue(optUrl.isPresent)
-        assertSame(entity, optUrl.get())
+        assertSame(entity, optUrl)
 
         verify(repository).findByShortenUrl(url)
     }

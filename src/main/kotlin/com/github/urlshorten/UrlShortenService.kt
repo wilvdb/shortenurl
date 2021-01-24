@@ -11,12 +11,15 @@ class UrlShortenService(val urlRepository: UrlRepository) {
 
     @Transactional
     open fun shorten(url: String, strategy: IdStrategy): Url? {
-        var urlForShorten = Url()
-        urlForShorten.creationDate = LocalDateTime.now()
-        urlForShorten.expirationDate = urlForShorten.creationDate.plusYears(2L)
-        urlForShorten.originalUrl = url
+        var urlForShorten = Url(
+                id = null,
+                creationDate = LocalDateTime.now(),
+                expirationDate = LocalDateTime.now().plusYears(2L),
+                originalUrl = url,
+                shortenUrl = null,
+        )
         urlForShorten = urlRepository.save(urlForShorten)
-        val id = strategy.apply(urlForShorten.id)
+        val id = strategy.apply(urlForShorten.id!!)
         try {
             val netUrl = URL(url)
             urlForShorten.shortenUrl = url.replace(netUrl.path, "/$id")
@@ -27,5 +30,5 @@ class UrlShortenService(val urlRepository: UrlRepository) {
     }
 
     @Transactional(readOnly = true)
-    open fun retrieve(shortenUrl: String) = urlRepository.findByShortenUrl(shortenUrl)
+    open fun retrieve(shortenUrl: String): Url? = urlRepository.findByShortenUrl(shortenUrl)
 }
